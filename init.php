@@ -2,10 +2,11 @@
 use Bitrix\Main;
 use Bitrix\Main\Loader;
 
+const STOP_LIST_PAGE = ["/bitrix/components/bitrix/desktop/admin_settings.php#authorize",];
 
 /* Определение на административной странице */
 $request = \Bitrix\Main\Context::getCurrent()->getRequest();
-if($request->isAdminSection()) {
+if($request->isAdminSection() && in_array($_SERVER['REQUEST_URI'],STOP_LIST_PAGE)) {
     \Bitrix\Main\Loader::includeModule('security');
 
     $UserIP = get_ip();
